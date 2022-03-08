@@ -18,13 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/chat', function () {
-    return view('chats');
-})->name('chat');
-
 Auth::routes();
+
+Route::middleware('auth')->group(function() {
+    Route::get('/chats', function () {
+        return view('chats');
+    })->name('chat');
+});
+
 
 Route::get('/home', 'HomeController@index');
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
